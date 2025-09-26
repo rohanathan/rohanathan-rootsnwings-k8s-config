@@ -1,0 +1,2 @@
+terraform/gke-cluster/terraform.tfstate
+terraform/gke-cluster/.terraform/*
