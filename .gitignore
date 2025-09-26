@@ -1,2 +1,3 @@
 terraform/gke-cluster/terraform.tfstate
 terraform/gke-cluster/.terraform/*
+terraform/gke-cluster/.terraform.lock.hcl
