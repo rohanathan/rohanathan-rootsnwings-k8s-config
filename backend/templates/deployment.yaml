@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: stripe-secret      # The K8s secret we created
                   key: STRIPE_SECRET_KEY   # The key within that secret
+            - name: GOOGLE_AI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: google-ai-secret
+                  key: GOOGLE_AI_API_KEY
           # END OF ADDITION
           {{- with .Values.resources }}
           resources:
