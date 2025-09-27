@@ -22,6 +22,14 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          # START OF ADDITION: Environment Variable for Secret
+          env:
+            - name: STRIPE_API_KEY      # The name the application expects
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret      # The K8s secret we created
+                  key: STRIPE_SECRET_KEY   # The key within that secret
+          # END OF ADDITION
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
