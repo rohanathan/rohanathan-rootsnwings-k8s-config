@@ -1,15 +1,12 @@
 # backend/values.yaml
 replicaCount: 2
-
 image:
   repository: europe-west2-docker.pkg.dev/rootsnwings-465610/rootsnwings-repo/rootsnwings-api
   pullPolicy: IfNotPresent
   # CI will replace this with $SHORT_SHA / $COMMIT_SHA
-  tag: "initial-fix"
-
+  tag: "67ed1e1"
 service:
   type: LoadBalancer
   port: 8080
-
 # Optional – leave empty or tune later
 resources: {}
