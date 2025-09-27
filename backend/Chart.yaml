@@ -1,0 +1,7 @@
+apiVersion: v2
+name: backend
+description: RootsNwings backend (FastAPI) deployment
+type: application
+version: 0.1.0
+# App version is only informational; we let CI patch values.yaml.image.tag.
+appVersion: "initial"

@@ -1,2 +1,4 @@
 terraform/gke-cluster/terraform.tfstate
 terraform/gke-cluster/.terraform/*
+gcp-cloud-build-key
+gcp-cloud-build-key.pub
