@@ -128,6 +128,12 @@ resource "google_container_node_pool" "app_pool" {
   }
 }
 
+# Grant the GKE Node Service Account permission to pull images from Artifact Registry
+resource "google_project_iam_member" "gke_nodes_artifact_puller" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.gke_nodes.email}"
+}
 # --------- OUTPUTS ----------
 output "cluster_name" { value = google_container_cluster.gke.name }
 output "cluster_region" { value = google_container_cluster.gke.location }
