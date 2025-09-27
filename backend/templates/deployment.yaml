@@ -24,7 +24,7 @@ spec:
               protocol: TCP
           # START OF ADDITION: Environment Variable for Secret
           env:
-            - name: STRIPE_API_KEY      # The name the application expects
+            - name: STRIPE_SECRET_KEY      # The name the application expects
               valueFrom:
                 secretKeyRef:
                   name: stripe-secret      # The K8s secret we created
