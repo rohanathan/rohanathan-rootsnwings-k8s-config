@@ -1,0 +1,15 @@
+replicaCount: 2
+
+image:
+  repository: europe-west2-docker.pkg.dev/rootsnwings-465610/rootsnwings-repo/rootsnwings-frontend
+  pullPolicy: IfNotPresent
+  tag: "initial"  # CI will overwrite this
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# Optional: if you want to keep a configurable base, expose it to Next.js at build/runtime
+env:
+  # If you keep Axios fully relative, you can leave this blank or "/"
+  NEXT_PUBLIC_API_BASE: "/"

@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "frontend.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "frontend.name" . }}
+    helm.sh/chart: {{ include "frontend.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "frontend.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "frontend.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: NEXT_PUBLIC_API_BASE
+              value: {{ .Values.env.NEXT_PUBLIC_API_BASE | quote }}
+            - name: NEXT_PUBLIC_FIREBASE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-app-id-secret
+                  key: NEXT_PUBLIC_FIREBASE_APP_ID
+            - name: NEXT_PUBLIC_FIREBASE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-api-key-secret
+                  key: NEXT_PUBLIC_FIREBASE_API_KEY
+            - name: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-auth-domain-secret
+                  key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+            - name: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-project-id-secret
+                  key: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+            - name: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: next-public-firebase-storage-bucket
+                  key: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET                                                      
+            - name: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-messaging-id-secret
+                  key: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+            - name: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-measurement-id-secret
+                  key: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+            - name: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-stripe-publishable-key-secret
+                  key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY                
