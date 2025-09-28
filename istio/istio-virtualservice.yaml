@@ -1,0 +1,30 @@
+# istio-virtualservice.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: rootsnwings-vs
+  namespace: backend
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - rootsnwings-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api # Traffic starting with /api is for the backend
+    rewrite:
+      uri: / # Remove /api prefix before sending to the service
+    route:
+    - destination:
+        host: backend-backend.backend.svc.cluster.local # Backend Service Name
+        port:
+          number: 8080
+  - match:
+    - uri:
+        prefix: / # All other traffic goes to the frontend
+    route:
+    - destination:
+        host: frontend.backend.svc.cluster.local # Frontend Service Name
+        port:
+          number: 3000
