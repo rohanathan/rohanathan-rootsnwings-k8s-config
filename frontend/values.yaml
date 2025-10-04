@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: europe-west2-docker.pkg.dev/rootsnwings-465610/rootsnwings-repo/rootsnwings-frontend
   pullPolicy: IfNotPresent
-  tag: "7fb07b8" # CI will overwrite this
+  tag: "f28d3ff" # CI will overwrite this
 service:
   type: ClusterIP
   port: 3000
