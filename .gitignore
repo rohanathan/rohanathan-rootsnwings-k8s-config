@@ -4,5 +4,3 @@ gcp-cloud-build-key
 gcp-cloud-build-key.pub
 argocd-repo-secret.yaml
 terraform/gke-cluster/terraform.tfstate.backup
-istio/grafana-virtualservice.yaml
-istio/kiali-virtualservice.yaml
