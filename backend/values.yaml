@@ -6,7 +6,7 @@ image:
   # CI will replace this with $SHORT_SHA / $COMMIT_SHA
   tag: "ccc3592"
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 8080
 # Optional – leave empty or tune later
 resources: {}
