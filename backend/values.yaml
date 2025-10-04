@@ -4,7 +4,7 @@ image:
   repository: europe-west2-docker.pkg.dev/rootsnwings-465610/rootsnwings-repo/rootsnwings-api
   pullPolicy: IfNotPresent
   # CI will replace this with $SHORT_SHA / $COMMIT_SHA
-  tag: "67ed1e1"
+  tag: "ccc3592"
 service:
   type: LoadBalancer
   port: 8080
