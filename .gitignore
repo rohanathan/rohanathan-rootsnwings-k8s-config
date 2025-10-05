@@ -5,3 +5,5 @@ gcp-cloud-build-key.pub
 argocd-repo-secret.yaml
 terraform/gke-cluster/terraform.tfstate.backup
 gcloud artifacts repositories describe rootsnwings-repo --location=europe-west2 --format="value(vulnerabilityScanningConfig)"
+terraform/gke-cluster/.terraform.tfstate.lock.info
+terraform/gke-cluster/key.json
