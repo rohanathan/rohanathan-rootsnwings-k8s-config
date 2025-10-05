@@ -7,7 +7,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: backend  # Targets only backend pods
+      app.kubernetes.io/name: backend  # Targets only backend pods
+      app.kubernetes.io/instance: backend
   action: ALLOW
   rules:
   # Rule 1: Allow traffic from frontend service account ONLY
