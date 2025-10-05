@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cloudsofglasgow-uk-staging-gw
+  namespace: istio-system
+spec:
+  secretName: cloudsofglasgow-uk-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-staging
+  dnsNames:
+    - cloudsofglasgow.uk.in
+    - www.cloudsofglasgow.uk.in
