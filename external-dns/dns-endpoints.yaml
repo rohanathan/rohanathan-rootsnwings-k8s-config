@@ -1,0 +1,28 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudsofglasgow-root
+  namespace: external-dns
+spec:
+  endpoints:
+    # A record for apex
+    - dnsName: cloudsofglasgow.uk.in
+      recordType: A
+      recordTTL: 300
+      targets:
+        - 35.197.195.191
+
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudsofglasgow-www
+  namespace: external-dns
+spec:
+  endpoints:
+    # CNAME from www to apex
+    - dnsName: www.cloudsofglasgow.uk.in
+      recordType: CNAME
+      recordTTL: 300
+      targets:
+        - cloudsofglasgow.uk.in

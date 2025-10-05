@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: external-dns
+    targetRevision: 6.x
+    helm:
+      values: |
+        provider: google
+        policy: sync
+        interval: 1m
+        # Limit to your zone so we don’t touch anything else
+        domainFilters:
+          - cloudsofglasgow.uk.in
+        txtOwnerId: rootsnwings-externaldns
+        # We will feed desired records via CRDs:
+        sources:
+          - crd
+        crd:
+          create: true
+        # Workload Identity: reuse your existing GSA with DNS Admin
+        serviceAccount:
+          create: true
+          name: external-dns
+          annotations:
+            iam.gke.io/gcp-service-account: cert-manager-dns01@rootsnwings-465610.iam.gserviceaccount.com
+        # Google project / zone info
+        google:
+          project: rootsnwings-465610
+          # Optional: narrow to a single managed zone
+          # zone: cloudsofglasgow
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
