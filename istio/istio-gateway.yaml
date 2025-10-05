@@ -1,16 +1,31 @@
-# istio-gateway.yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: rootsnwings-gateway
-  namespace: backend
+  namespace: istio-system
 spec:
   selector:
     istio: ingressgateway
   servers:
+  # HTTP: redirect everything to HTTPS
   - port:
       number: 80
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - cloudsofglasgow.uk.in
+    - www.cloudsofglasgow.uk.in
+    tls:
+      httpsRedirect: true
+
+  # HTTPS: terminate TLS using the cert-manager secret
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - cloudsofglasgow.uk.in
+    - www.cloudsofglasgow.uk.in
+    tls:
+      mode: SIMPLE
+      credentialName: cloudsofglasgow-uk-tls   # Secret that cert-manager created in istio-system

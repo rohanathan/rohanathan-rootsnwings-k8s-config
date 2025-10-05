@@ -8,7 +8,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - rootsnwings-gateway
+  - istio-system/rootsnwings-gateway
   http:
   - match:
     - uri:
