@@ -13,15 +13,18 @@ spec:
   policyTypes:
   - Ingress
   ingress:
-  # Rule 1: Allow Ingress Gateway traffic (for external requests)
+  # Rule 1: Allow Ingress Gateway traffic (for external requests only to 8080)
   - from:
     - namespaceSelector:
         matchLabels:
-          name: istio-system 
+          kubernetes.io/metadata.name: istio-system
       podSelector:
         matchLabels:
-          app: istio-ingressgateway 
-  # Rule 2: Allow Frontend traffic (for internal service calls)
+          app: istio-ingressgateway
+    ports:
+    - protocol: TCP
+      port: 8080 
+  # Rule 2: Allow Frontend traffic (for internal service calls on 8080)
   - from:
     - podSelector:
         matchLabels:
@@ -29,10 +32,4 @@ spec:
           app.kubernetes.io/instance: frontend
     ports:
     - protocol: TCP
-      port: 8080 # Allow traffic to backend's port 8080
-  # Rule 3: Allow Kubelet/System traffic for health checks and sidecar
-  - from:
-    - podSelector: {} # Allows traffic from any pod
-    ports:
-    - protocol: TCP
-      port: 15000 # Istio sidecar management port
+      port: 8080
