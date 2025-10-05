@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-ingress
+  namespace: backend
+spec:
+  # 1. Select the backend pods
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: backend
+      app.kubernetes.io/instance: backend
+  # 2. Define the types of traffic to enforce (Ingress/Inbound)
+  policyTypes:
+  - Ingress
+  ingress:
+  # Rule 1: Allow Ingress Gateway traffic (for external requests)
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system 
+      podSelector:
+        matchLabels:
+          app: istio-ingressgateway 
+  # Rule 2: Allow Frontend traffic (for internal service calls)
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: frontend # Allow connections from frontend pods
+          app.kubernetes.io/instance: frontend
+    ports:
+    - protocol: TCP
+      port: 8080 # Allow traffic to backend's port 8080
+  # Rule 3: Allow Kubelet/System traffic for health checks and sidecar
+  - from:
+    - podSelector: {} # Allows traffic from any pod
+    ports:
+    - protocol: TCP
+      port: 15000 # Istio sidecar management port
