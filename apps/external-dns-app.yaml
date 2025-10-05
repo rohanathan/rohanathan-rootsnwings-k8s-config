@@ -40,6 +40,7 @@ spec:
         # Google project info
         extraArgs:
           - --google-project=rootsnwings-465610
+          - --txt-suffix=-txt
   
   destination:
     server: https://kubernetes.default.svc
