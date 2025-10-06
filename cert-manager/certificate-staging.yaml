@@ -7,7 +7,7 @@ spec:
   secretName: cloudsofglasgow-uk-tls   # Istio Gateway reference
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging          # start with staging; switch to prod later
+    name: letsencrypt-prod         
   commonName: cloudsofglasgow.uk.in
   dnsNames:
     - cloudsofglasgow.uk.in

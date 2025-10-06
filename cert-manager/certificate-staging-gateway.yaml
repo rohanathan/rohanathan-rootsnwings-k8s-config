@@ -7,7 +7,7 @@ spec:
   secretName: cloudsofglasgow-uk-tls
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging
+    name: letsencrypt-prod
   dnsNames:
     - cloudsofglasgow.uk.in
     - www.cloudsofglasgow.uk.in
