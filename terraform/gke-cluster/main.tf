@@ -89,7 +89,7 @@ resource "google_container_cluster" "gke" {
   monitoring_config {
     enable_components = ["SYSTEM_COMPONENTS"]
     managed_prometheus {
-      enabled = true
+      enabled = false
     }
   }
 
@@ -112,12 +112,13 @@ resource "google_container_node_pool" "app_pool" {
 
   autoscaling {
     min_node_count = 2
-    max_node_count = 5
+    max_node_count = 4
   }
 
   node_config {
-    machine_type    = "e2-standard-4"
-    disk_size_gb    = 100
+    machine_type    = "e2-standard-2"
+    disk_size_gb    = 30
+    spot            = true
     service_account = google_service_account.gke_nodes.email
     oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
   }
